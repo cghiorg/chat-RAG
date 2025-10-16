@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <aside class="md:col-span-1 space-y-4">
+    <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-4">
+      <h2 class="font-semibold mb-3">Documentos</h2>
+      <div>
+        <h3 class="text-sm text-slate-300 mb-1">data/pdfs</h3>
+        <ul class="text-sm list-disc list-inside">
+          {% for f in local_pdfs %}<li>{{ f }}</li>{% else %}<li class="text-slate-500">—</li>{% endfor %}
+        </ul>
+      </div>
+      <div class="mt-3">
+        <h3 class="text-sm text-slate-300 mb-1">uploads</h3>
+        <ul class="text-sm list-disc list-inside">
+          {% for f in uploaded_pdfs %}<li>{{ f }}</li>{% else %}<li class="text-slate-500">—</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-4 space-y-2">
+      <h2 class="font-semibold mb-1">Archivos & Índice</h2>
+      <form id="uploadForm" class="space-y-2">
+        <input type="file" name="pdf" accept="application/pdf" class="block w-full text-sm file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-slate-700 file:text-white">
+        <button class="bg-emerald-500 hover:bg-emerald-600 text-sm px-4 py-2 rounded-lg w-full">Subir</button>
+      </form>
+      <button id="indexBtn" class="w-full bg-sky-500 hover:bg-sky-600 text-sm px-4 py-2 rounded-lg">Indexar todo</button>
+      <button id="wipeBtn" class="w-full bg-rose-500 hover:bg-rose-600 text-sm px-4 py-2 rounded-lg">Borrar colección</button>
+      <div class="border-t border-slate-700 pt-2">
+        <button id="exportBtn" class="w-full bg-indigo-500 hover:bg-indigo-600 text-sm px-4 py-2 rounded-lg">Exportar índice</button>
+        <form id="importForm" class="mt-2 space-y-2">
+          <input type="file" name="zip" accept=".zip" class="block w-full text-sm file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-slate-700 file:text-white">
+          <button class="w-full bg-indigo-500 hover:bg-indigo-600 text-sm px-4 py-2 rounded-lg">Importar índice</button>
+        </form>
+      </div>
+      <div id="opsMsg" class="text-xs text-slate-300 mt-2"></div>
+    </div>
+  </aside>
+
+  <section class="md:col-span-3">
+    <div id="chatBox" class="bg-slate-800/60 border border-slate-700 rounded-xl p-4 h-[70vh] overflow-y-auto space-y-3"></div>
+    <form id="askForm" class="mt-3 flex gap-2">
+      <input id="q" type="text" placeholder="Escribí tu pregunta..." class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2">
+      <input id="k" type="number" min="1" max="20" value="5" class="w-20 bg-slate-800 border border-slate-700 rounded-lg px-3 py-2">
+      <button class="bg-emerald-500 hover:bg-emerald-600 px-4 py-2 rounded-lg">Enviar</button>
+    </form>
+    <p class="text-xs text-slate-400 mt-2">Las respuestas citan fuentes (PDF y página) encontradas en tu índice local.</p>
+  </section>
+</div>
+{% endblock %}

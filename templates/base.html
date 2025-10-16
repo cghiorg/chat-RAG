@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Chat RAG · Ollama + Chroma</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100">
+  <header class="border-b border-slate-700 bg-slate-900/70 backdrop-blur">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="font-bold tracking-wide">Chat · RAG</a>
+      <nav class="text-slate-300 space-x-4">
+        <a href="/" class="hover:text-white">Inicio</a>
+        <a href="/logout" class="hover:text-white">Salir</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-4">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="space-y-2 mb-4">
+          {% for m in messages %}
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm">{{ m }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="border-t border-slate-800 mt-6">
+    <div class="max-w-5xl mx-auto p-4 text-xs text-slate-400">
+      Local · Privado
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
